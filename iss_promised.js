@@ -7,7 +7,7 @@ const fetchMyIP = function() {
 
 const fetchCoordsByIP = function(body) {
   const ip = JSON.parse(body).ip;
-  return request(`https://api.ipbase.com/json/?apikey=U9dbuq784KcNGlhWU4c3tOLr9xqjht7dT3rFE9Im`);
+  return request(`https://api.ipbase.com/json/?apikey=(keyremoved)`);
 };
 
 const fetchISSFlyOverTimes = function(body) {
