@@ -19,7 +19,7 @@ const fetchMyIP = function(callback) {
 
 const fetchCoordsByIP = function(ip, callback) {
   //API key was required to get the actual correct answer , but was advised by mentor to not commit with my key.
-  request(`https://api.ipbase.com/json/?apikey=${ip}`, (error, response, body) => {
+  request(`https://api.ipbase.com/json/?apikey=U9dbuq784KcNGlhWU4c3tOLr9xqjht7dT3rFE9Im`, (error, response, body) => {
     if (error) {
       callback(error, null);
       return;
@@ -34,4 +34,21 @@ const fetchCoordsByIP = function(ip, callback) {
   });
 };
 
-module.exports = { fetchMyIP, fetchCoordsByIP };
+const fetchISSFlyOverTimes = function(coords, callback) {
+  const url = `https://iss-pass.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`;
+
+  request(url, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+    if (response.statusCode !== 200) {
+      callback(Error(`Status Code ${response.statusCode} when fetching flyover time: ${body}`), null);
+      return;
+    }
+    const passes = JSON.parse(body).response;
+    callback(null, passes);
+  });
+};
+
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
